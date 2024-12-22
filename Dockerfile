@@ -64,7 +64,7 @@ RUN printf "#!/bin/bash\n" > ./paracord_runner.sh && \
 	printf "gunicorn ${PROJECT_NAME}.wsgi:application --bind \"0.0.0.0\$RUN_PORT\"\n" >> ./paracord_runner.sh \
 
 # make the script exec
-RUN chmod +x ./paracord_runner.sh
+RUN chmod +x paracord_runner.sh
 
 # Clean up cache to reduce image size
 RUN apt-get remove --purge -y \
