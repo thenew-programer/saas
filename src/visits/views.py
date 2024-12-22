@@ -12,6 +12,6 @@ def visits(req):
     query_set.create(path=req.path)
     context = {
         "page_visit_count": query_set.all().count(),
-        "page_visit_timestamp": query_set.values("timestamp")[0]["timestamp"],
+        "page_visit_timestamp": query_set.values("timestamp")[-1]["timestamp"],
     }
     return render(req, "visits/visits.html", context)
