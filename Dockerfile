@@ -55,7 +55,7 @@ ENV DJANGO_DEBUG=${DJANGO_DEBUG}
 # RUN python manage.py collectstatic --noinput
 
 # set the project name
-ARG PROJECT_NAME=saas
+ARG PROJECT_NAME=batisync
 
 RUN printf "#!/bin/bash\n" > ./paracord_runner.sh && \
     printf "RUN_PORT=\"\${PORT:-8000}\"\n\n" >> ./paracord_runner.sh && \
