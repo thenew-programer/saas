@@ -57,20 +57,20 @@ ENV DJANGO_DEBUG=${DJANGO_DEBUG}
 # set the project name
 ARG PROJECT_NAME=saas
 
-# create a bash script that will run the project
 RUN printf "#!/bin/bash\n" > ./paracord_runner.sh && \
-	printf "RUN_PORT=\"\${PORT:-8000}\"\n\n" >> ./paracord_runner.sh && \
-	printf "python manage.py migrate --no-input\n" >> ./paracord_runner.sh && \
-	printf "gunicorn ${PROJECT_NAME}.wsgi:application --bind \"0.0.0.0\$RUN_PORT\"\n" >> ./paracord_runner.sh \
+    printf "RUN_PORT=\"\${PORT:-8000}\"\n\n" >> ./paracord_runner.sh && \
+    printf "python manage.py migrate --no-input\n" >> ./paracord_runner.sh && \
+    printf "gunicorn ${PROJ_NAME}.wsgi:application --bind \"0.0.0.0:\$RUN_PORT\"\n" >> ./paracord_runner.sh
 
-# make the script exec
+# make the bash script executable
 RUN chmod +x paracord_runner.sh
 
-# Clean up cache to reduce image size
+# Clean up apt cache to reduce image size
 RUN apt-get remove --purge -y \
-	&& apt-get autoremove -y \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# run the project via the script when the container starts
+# Run the Django project via the runtime script
+# when the container starts
 CMD ./paracord_runner.sh
