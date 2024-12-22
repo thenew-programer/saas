@@ -61,7 +61,7 @@ ARG PROJECT_NAME=saas
 RUN printf "#!/bin/bash\n" > ./paracord_runner.sh && \
 	printf "RUN_PORT=\"\${PORT:-8000}\"\n\n" >> ./paracord_runner.sh && \
 	printf "python manage.py migrate --no-input\n" >> ./paracord_runner.sh && \
-	printf "gunicorn ${PROJECT_NAME}.wsgi:application --bind \"0.0.0.0\$RUN_PORT\"\n" > ./paracord_runner.sh
+	printf "gunicorn ${PROJECT_NAME}.wsgi:application --bind \"0.0.0.0\$RUN_PORT\"\n" >> ./paracord_runner.sh \
 
 # make the script exec
 RUN chmod +x ./paracord_runner.sh
